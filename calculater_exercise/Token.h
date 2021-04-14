@@ -1,28 +1,59 @@
-/**
- * This file defines the token class and its associated functions.
- * @author Jakob Kaiser
- */
 #ifndef JMX_TOKEN_H
 #define JMX_TOKEN_H
 
 #include<string>
+
 using namespace std;
 
-// Different token classes
-enum TokenType{INTEGER, PLUS, MINUS, EOL};
+/**
+ * Enumeration of different token classes.
+ *
+ * INTEGER is a token containing integer values.
+ *
+ * PLUS is a token representing plus sign.
+ *
+ * MINUS is a token representing minus sign.
+ *
+ * EOL is a token representing end of line.
+ */
+enum TokenType {
+    INTEGER, PLUS, MINUS, EOL
+};
 
 /**
- * Token class containing a type and value.
+ * Token class containing a token type and value.
+ * @author Jakob Kaiser
  */
 class Token {
-    private:
-        TokenType type;
-        string value;
+private:
+    TokenType type;
+    string value;
 
-    public:
-        Token(TokenType type, string value);
-        TokenType getType();
-        string getValue();
+public:
+    /**
+     * Token constructor for tokens containing values.
+     * @param type token type
+     * @param value token value
+     */
+    Token(TokenType type, string value);
+
+    /**
+    * Token constructor for tokens without values.
+    * @param type token type
+    */
+    Token(TokenType type);
+
+    /**
+     * Getter for token type.
+     * @return toke type
+     */
+    TokenType getType();
+
+    /**
+     * Getter for toke value.
+     * @return
+     */
+    string getValue();
 };
 
 #endif //JMX_TOKEN_H

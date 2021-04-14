@@ -1,7 +1,3 @@
-//
-// Created by jakob on 4/14/21.
-//
-
 #include "Token.h"
 
 Token::Token(TokenType type, string value) {
