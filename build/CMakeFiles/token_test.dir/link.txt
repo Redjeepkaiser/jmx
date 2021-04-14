@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/token_test.dir/test/TokenTest.cpp.o  -o token_test  -lgtest_main 

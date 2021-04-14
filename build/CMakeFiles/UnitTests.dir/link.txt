@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/UnitTests.dir/test/UnitTests.cpp.o CMakeFiles/UnitTests.dir/test/TokenTest.cpp.o CMakeFiles/UnitTests.dir/test/ParserTest.cpp.o  -o UnitTests  lib/libgtest_main.a lib/libgtest.a -lpthread 

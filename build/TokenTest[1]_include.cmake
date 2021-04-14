@@ -1,5 +1,0 @@
-if(EXISTS "/home/jakob/Documents/Projects/jmx/build/TokenTest[1]_tests.cmake")
-  include("/home/jakob/Documents/Projects/jmx/build/TokenTest[1]_tests.cmake")
-else()
-  add_test(TokenTest_NOT_BUILT TokenTest_NOT_BUILT)
-endif()

@@ -1,5 +1,0 @@
-if(EXISTS "/home/jakob/Documents/Projects/jmx/build/ParserTest[1]_tests.cmake")
-  include("/home/jakob/Documents/Projects/jmx/build/ParserTest[1]_tests.cmake")
-else()
-  add_test(ParserTest_NOT_BUILT ParserTest_NOT_BUILT)
-endif()
