@@ -1,0 +1,5 @@
+if(EXISTS "/home/jakob/Documents/Projects/jmx/build/jmx_test[1]_tests.cmake")
+  include("/home/jakob/Documents/Projects/jmx/build/jmx_test[1]_tests.cmake")
+else()
+  add_test(jmx_test_NOT_BUILT jmx_test_NOT_BUILT)
+endif()

@@ -1,0 +1,1 @@
+/usr/bin/c++     CMakeFiles/TokenTest.dir/test/TokenTest.cpp.o CMakeFiles/TokenTest.dir/test/ParserTest.cpp.o  -o TokenTest  lib/libgtest_main.a lib/libgtest.a -lpthread 
