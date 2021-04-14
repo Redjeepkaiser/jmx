@@ -5,7 +5,11 @@ Token::Token(TokenType type, string value) {
     this->value = value;
 }
 
-int Token::getType() {
+Token::Token(TokenType type) {
+    this->type = type;
+}
+
+TokenType Token::getType() {
     return this->type;
 }
 

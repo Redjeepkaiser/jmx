@@ -1,5 +1,8 @@
 #include <gtest/gtest.h>
+#include "../src/Token.h"
 
-TEST(TokenTest, ConstructorTest) {
-    EXPECT_EQ(7 * 6, 42);
+TEST(TokenTest, ConstructorTestInteger) {
+    Token t(INTEGER, "3");
+    ASSERT_EQ(t.getType(), INTEGER);
+    ASSERT_EQ(t.getValue(), "3");
 }

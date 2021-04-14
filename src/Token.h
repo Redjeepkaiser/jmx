@@ -2,23 +2,9 @@
 #define JMX_TOKEN_H
 
 #include<string>
+#include "TokenType.h"
 
 using namespace std;
-
-/**
- * Enumeration of different token classes.
- *
- * INTEGER is a token containing integer values.
- *
- * PLUS is a token representing plus sign.
- *
- * MINUS is a token representing minus sign.
- *
- * EOL is a token representing end of line.
- */
-enum TokenType {
-    INTEGER, PLUS, MINUS, EOL
-};
 
 /**
  * Token class containing a token type and value.
@@ -42,6 +28,11 @@ public:
     * @param type token type
     */
     Token(TokenType type);
+
+    /**
+     * Default constructor.
+     */
+     Token(){};
 
     /**
      * Getter for token type.
