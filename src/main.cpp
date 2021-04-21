@@ -9,10 +9,9 @@
 using namespace std;
 
 int main() {
-    string input = "3*5";
-
+    string input = "40/(20/10)";
     Interpreter interpreter = Interpreter();
     interpreter.feed(input);
-    cout << interpreter.interpret();
+    interpreter.interpret();
     return 0;
 }

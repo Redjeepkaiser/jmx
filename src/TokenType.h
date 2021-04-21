@@ -20,10 +20,21 @@
  *
  * DIV is a token representing a dividing sign.
  *
+ * LPAREN is a token representing a left parentheses.
+ *
+ * RPAREN is a token representing a right parentheses.
+ *
  * END is a token representing end of input.
  */
 enum TokenType {
-    INTEGER, PLUS, MINUS, MUL, DIV, END
+    INTEGER,
+    PLUS,
+    MINUS,
+    MUL,
+    DIV,
+    LPAREN,
+    RPAREN,
+    END
 };
 
 #endif //MY_PROJECT_TOKENTYPE_H

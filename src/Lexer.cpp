@@ -31,6 +31,12 @@ Token Lexer::getNextToken() {
         } else if (current_character == 47) {
             advance();
             return Token(DIV);
+        } else if (current_character == 40) {
+            advance();
+            return Token(LPAREN);
+        } else if (current_character == 41) {
+            advance();
+            return Token(RPAREN);
         }
     }
 

@@ -16,9 +16,20 @@ void Interpreter::eat(TokenType type) {
 }
 
 int Interpreter::factor() {
-    string value = current_token.getValue();
-    eat(INTEGER);
-    return stoi(value);
+    int result;
+    if (current_token.getType() == INTEGER) {
+        string value = current_token.getValue();
+        eat(INTEGER);
+        result = stoi(value);
+    } else if (current_token.getType() == LPAREN) {
+        eat(LPAREN);
+        result = expr();
+        eat(RPAREN);
+    } else {
+        throw SytaxError();
+    }
+
+    return result;
 }
 
 int Interpreter::term() {
@@ -48,6 +59,13 @@ int Interpreter::expr() {
             eat(MINUS);
             result -= term();
         }
+    }
+
+    if (current_token.getType() != PLUS &&
+        current_token.getType() != MINUS &&
+        current_token.getType() != END &&
+        current_token.getType() != RPAREN) {
+        throw SytaxError();
     }
 
     return result;
