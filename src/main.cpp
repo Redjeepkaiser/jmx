@@ -9,7 +9,7 @@
 using namespace std;
 
 int main() {
-    string input = "3+52";
+    string input = "3*5";
 
     Interpreter interpreter = Interpreter();
     interpreter.feed(input);

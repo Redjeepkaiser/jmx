@@ -25,6 +25,12 @@ Token Lexer::getNextToken() {
         } else if (current_character == 45) {
             advance();
             return Token(MINUS);
+        } else if (current_character == 42) {
+            advance();
+            return Token(MUL);
+        } else if (current_character == 47) {
+            advance();
+            return Token(DIV);
         }
     }
 

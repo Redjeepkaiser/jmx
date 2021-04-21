@@ -1,6 +1,10 @@
 /**
  * This file defines the interpreter class and associated functions.
  *
+ * expr   : term ((PLUS | MINUS) term)*
+ * term   : factor ((MUL | DIV) factor)*
+ * factor : INTEGER
+ *
  * @author Jakob Kaiser
  */
 
@@ -22,10 +26,21 @@ private:
     void eat(TokenType type);
 
     /**
-     * Eats an integer token and returns its value.
+     * factor : INTEGER
+     * @return integer token value
+     */
+    int factor();
+
+    /**
+     * term   : factor ((MUL | DIV) factor)*
      * @return integer token value
      */
     int term();
+
+    /**
+     * expr   : term ((PLUS | MINUS) term)*
+     */
+    int expr();
 
 public:
     /**
