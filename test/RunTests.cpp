@@ -1,3 +1,9 @@
+/**
+ * This file runs all tests.
+ *
+ * @author Jakob Kaiser
+ */
+
 #include <gtest/gtest.h>
 
 int main(int argc, char **argv) {

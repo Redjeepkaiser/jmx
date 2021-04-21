@@ -1,3 +1,9 @@
+/**
+ * This header file defines different token classes.
+ *
+ * @author Jakob Kaiser
+ */
+
 #ifndef MY_PROJECT_TOKENTYPE_H
 #define MY_PROJECT_TOKENTYPE_H
 

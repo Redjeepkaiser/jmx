@@ -1,6 +1,8 @@
-//
-// Created by jakob on 4/14/21.
-//
+/**
+ * This file defines custom errors.
+ *
+ * @author Jakob Kaiser
+ */
 
 #ifndef MY_PROJECT_ERRORS_H
 #define MY_PROJECT_ERRORS_H

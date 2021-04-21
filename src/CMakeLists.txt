@@ -1,4 +1,5 @@
-set(core_SRCS Token.cpp Parser.cpp Lexer.cpp)
+# Add new .cpp files here
+set(core_SRCS Token.cpp Lexer.cpp Interpreter.cpp)
 
 add_library(core ${core_SRCS})
 add_executable(exe main.cpp)

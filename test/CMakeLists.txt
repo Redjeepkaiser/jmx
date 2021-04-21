@@ -3,7 +3,9 @@ project(Test)
 
 # GoogleTest requires at least C++11
 set(CMAKE_CXX_STANDARD 11)
-set(test_SRCS TokenTest.cpp ParserTest.cpp)
+
+# Add files containing new tests here
+set(test_SRCS LexerTest.cpp InterpreterTest.cpp)
 
 include(FetchContent)
 FetchContent_Declare(

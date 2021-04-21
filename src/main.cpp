@@ -1,12 +1,18 @@
-#include "Token.h"
+/**
+ * This file provides the entry point to the interpreter.
+ *
+ * @author Jakob Kaiser
+ */
 
-int main(){
-    std::string input;
+#include "Interpreter.h"
+
+using namespace std;
+
+int main() {
+    string input = "3+52";
+
     Interpreter interpreter = Interpreter();
-
-    while (std::getline(std::cin, input)){
-        std::cout << interpreter.interpret(input);
-    }
-
+    interpreter.feed(input);
+    cout << interpreter.interpret();
     return 0;
 }

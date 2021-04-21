@@ -1,33 +1,54 @@
+/**
+ * This file implements the lexer functions.
+ *
+ * @author Jakob Kaiser
+ */
+
 #include "Lexer.h"
-//int Interpreter::get_integer() {
-//    std::string complete_integer;
-//
-//    while (std::isdigit(this->current_char)) {
-//        complete_integer.append(this->current_char);
-//        this->current_position += 1;
-//        this->current_char = this->text[this->current_position];
-//    }
-//
-//    return std::stoi(complete_integer);
-//}
-//
-//Token Interpreter::get_next_token() {
-//    while (this->current_char) {
-//
-//        if (std::isdigit(this->current_char)) {
-//            return Token(this->get_integer());
-//        } else if (this->current_char.is_whitespace()) {
-//        } else if (this->current_char == "+") {
-//        } else if (this->current_char == "-") {
-//        }
-//    }
-//}
-//
-//int Interpreter::interpret(std::string input) {
-//    text = input;
-//    current_position = 0;
-//    current_char = text[current_position];
-//
-//    current_token = get_next_token();
-//    return 0;
-//}
+
+void Lexer::feed(string input) {
+    this->input = input;
+    this->current_position = 0;
+}
+
+Token Lexer::getNextToken() {
+    current_character = this->input[current_position];
+
+    while (current_character) {
+        if (isspace(current_character)) {
+            skipWhitespace();
+        } else if (isdigit(current_character)) {
+            return getIntegerToken();
+        } else if (current_character == 43) {
+            advance();
+            return Token(PLUS);
+        } else if (current_character == 45) {
+            advance();
+            return Token(MINUS);
+        }
+    }
+
+    return Token(END);
+}
+
+void Lexer::skipWhitespace() {
+    while (current_character && isspace(current_character)) {
+        advance();
+    }
+}
+
+void Lexer::advance() {
+    this->current_position += 1;
+    this->current_character = this->input[current_position];
+}
+
+Token Lexer::getIntegerToken() {
+    string result;
+
+    while (current_character && isdigit(current_character)) {
+        result.push_back(current_character);
+        advance();
+    }
+
+    return Token(INTEGER, result);
+}
