@@ -1,7 +1,3 @@
-//
-// Created by jakob on 4/14/21.
-//
-
 #include "Token.h"
 
 Token::Token(TokenType type, string value) {
@@ -9,7 +5,11 @@ Token::Token(TokenType type, string value) {
     this->value = value;
 }
 
-int Token::getType() {
+Token::Token(TokenType type) {
+    this->type = type;
+}
+
+TokenType Token::getType() {
     return this->type;
 }
 
