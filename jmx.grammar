@@ -1,0 +1,380 @@
+%TOKEN
+	LBRACE		\{
+	RBRACE		\}
+	LBRAKT		\[
+	RBRAKT		\]
+	LPAREN		\(
+	RPAREN		\)
+	SEPA		:
+	SEPK		;
+	SEPC		,
+
+	STRUCT		struct
+	CLASS		class
+
+	IF			if
+	ELSE		else
+	FOR			for
+	WHILE		while
+
+	OPASS		\=
+	OPINC		\+\+
+	OPDEC		\-\-
+	OPBNDREF	\&
+	OPMULDRF	\*
+	OPUNANEG	\~
+	OPUNANOT	\!
+	OPMIN		\-
+	OPPLS		\+
+	OPEXP		\*\*
+	OPDIV		\/
+	OPMOD		\%
+	OPSFTL		\<\<
+	OPSFTR		\>\>
+	OPLT		\<
+	OPLE		\<\=
+	OPGT		\>
+	OPGE		\>\=
+	OPEQU		\=\=
+	OPNEQ		\!\=
+	OPBXR		\^
+	OPBOR		\|
+	OPSND		\&\&
+	OPSOR		\|\|
+
+	ID			[_a-zA-Z][_a-zA-Z0-9]*
+	LITERAL		[0-9]+
+%UNTOKEN
+
+#{      Declarations      }#
+###
+# Declarations are a higher-level construct than statements.
+# A declaration is a way to describe structure - either in routines or records.
+# Declarations are the main idea behind structured programming.
+###
+decls:
+	decls decl
+	eps
+
+# A declaration can be any of:
+#	struct
+#	class
+decl:
+	struct
+	class
+	primary
+
+# A struct may only contain variable declarations.
+struct:
+	STRUCT id LBRACE vardecls RBRACE
+
+# Iteration<vardeclk>
+vardecls:
+	vardecls vardeclk
+	eps
+
+vardeclk:
+	vardecl SEPK
+
+# A variable declaration consists of a type, a name, and an optional default value.
+vardecl:
+	type id vardef
+
+vardef:
+	OPASS exprass
+	eps
+
+# Classes may contain any type of declarations, even other classes.
+class:
+	CLASS id LBRACE decls RBRACE
+
+###
+# Both the declaration of a variable and that of a field starts the same:
+# ID ID
+# (m)   LPAREN ... RPAREN block
+# (f)   SEPK
+# As such, to create an unambiguous grammar, we first need to unite both concepts
+# under a common rule, called a 'primary'.
+###
+primary:
+	 primary_base primary_rest
+
+primary_base:
+	type id
+
+primary_rest:
+	method_rest
+	variable_rest
+
+method_rest:
+	LPAREN RPAREN block
+
+variable_rest:
+	 SEPK
+
+#{        STATEMENTS        }#
+###
+# Statements are the bread and butter of imperative languages.
+# Statements are either controls (language constructs that change the flow) or computations.
+# A block is a sequence of consequitive statements.
+###
+block:
+	LBRACE stmnts RBRACE
+
+stmnts:
+	stmnts stmnt
+	eps
+
+stmnt:
+	SEPK
+	vardecl SEPK
+	expr SEPK
+	block
+	ctrlif
+	ctrlfor
+	ctrlwhiledo
+
+#{        CONTROL BLOCKS        }#
+ctrlif:
+	IF LPAREN expr RPAREN block ctrlelse
+
+ctrlelse:
+	ELSE stmnt
+	eps
+
+ctrlfor:
+	FOR LPAREN ctrlforcond RPAREN stmnt
+
+ctrlforcond:
+	ctrlforstep
+	ctrlforiter
+
+ctrlforstep:
+	expr SEPK exprass SEPK expr
+
+ctrlforiter:
+	type ID SEPA ID
+
+ctrlwhiledo:
+	WHILE LPAREN expr RPAREN stmnt
+
+#
+# stat_for:
+# 	FOR fori block
+# 	FOR fore block
+# The for(i=0;i<n;i++) syntax
+# Note: here we have to explicitly define the parantheses as they
+# do not naturally flow from the definition of the other variables.
+# fori:
+# 	LPAREN fori RPAREN
+# 	foriset SEMICOLON foricond SEMICOLON foriset
+# foriset:
+# 	expr_compound
+# 	eps
+# foricond:
+# 	valoric
+# 	eps
+# The for(int i : list) syntax
+# Note: same deal with parantheses as fori
+# fore:
+# 	LPAREN fore RPAREN
+# 	vardec COLON valoric
+#
+# The while(i<n) syntax
+# stat_while:
+# 	WHILE expr block
+
+#{      OPERATORS     }#
+###
+# Operator precedence:
+#
+# x++ x-- () []							L		post-increment & access	pst		y
+# ++x --x								R		pre-increment			pre		y
+# & *									R		refernce / dereference	ref		y
+# ~ ! - +								R		unary operators			una		y
+# **									L		exponentiation			exp		y
+# * / %									L		multiplicative			mul		y
+# + -									L		additive				add		y
+# << >>									L		shifters				sft		y
+# <= < >= >								L?		comparison				cmp		y
+# == !=									L		equality				equ		y
+# &										L		bit-AND / full bool AND	bnd		y
+# ^										L		bit-XOR / full bool NEQ	bxr		y
+# |										L		bit-OR / full bool OR	bor		y
+# &&									L		bool AND				snd		y
+# ||									L		bool OR					sor		y
+# ?:									R		conditional ?			cnd
+# = += -= *= %= &= ^= |= <<= >>= 		R		assignment				ass		~
+###
+# Some notes:
+#	Left associativity is more stack-efficient in the implementation of a CFG
+#	Unary operators are bound to some associativity (L for postfix, R for prefix)
+#	It is unclear whether or not comparison operators should be associative
+#	Yes, method calls and array accesses are also considered to be 'operators'.
+###
+oppst:
+	OPINC
+	OPDEC
+
+oppre:
+	OPINC
+	OPDEC
+
+opref:
+	OPBNDREF
+	OPMULDRF
+
+opuna:
+	OPUNANEG
+	OPUNANOT
+	OPPLS
+	OPMIN
+
+opexp:
+	OPEXP
+
+opmul:
+	OPMULDRF
+	OPDIV
+	OPMOD
+
+opadd:
+	OPPLS
+	OPMIN
+
+opsft:
+	OPSFTL
+	OPSFTR
+
+opcmp:
+	OPLT
+	OPLE
+	OPGT
+	OPGE
+
+opequ:
+	OPEQU
+	OPNEQ
+
+opbnd:
+	OPBNDREF
+
+opbxr:
+	OPBXR
+
+opbor:
+	OPBOR
+
+opsnd:
+	OPSND
+
+opsor:
+	OPSOR
+
+opass:
+	OPASS
+
+#{      EXPRESSIONS     }#
+###
+# Each expression is bound to some class of operators.
+# This part could have been described more discretely, but not in the grammar language that we are using.
+# At least this way it easily translates into different other grammar languages.
+###
+# Notes:
+#	All expressions must be at the very least an assignment, meaning that 'x+y' is not
+#	 an expression, but 'z=x+y' is.
+#	Alternatively, an expression may also be an acc or inc (like '++a(1,2);').
+#	Assignments must take a exprref as the left hand side, restricting
+#	 the use of code like 'a+1=3*x;'.
+#	Assignments may be chained like '*p=*q=0;'.
+###
+
+expr:
+	exprref opass exprass
+	exprpre
+
+exprass:
+	exprref opass exprass
+	exprsor
+
+exprsor:
+	exprsor opsor exprsnd
+	exprsnd
+
+exprsnd:
+	exprsnd opsnd exprbor
+	exprbor
+
+exprbor:
+	exprbor opbor exprbxr
+	exprbxr
+
+exprbxr:
+	exprbxr opbxr exprbnd
+	exprbnd
+
+exprbnd:
+	exprbnd opbnd exprequ
+	exprequ
+
+exprequ:
+	exprequ opequ exprcmp
+	exprcmp
+
+exprcmp:
+	exprcmp opcmp exprsft
+	exprsft
+
+exprsft:
+	exprsft opsft expradd
+	expradd
+
+expradd:
+	expradd opadd exprmul
+	exprmul
+
+exprmul:
+	exprmul opmul exprexp
+	exprexp
+
+exprexp:
+	exprexp opexp expruna
+	expruna
+
+expruna:
+	opuna expruna
+	exprref
+
+exprref:
+	opref exprref
+	exprpre
+
+exprpre:
+	oppre exprpre
+	exprpst
+
+exprpst:
+	exprpst oppst
+	exprpst LPAREN terms RPAREN
+	exprpst LBRAKT terms RBRAKT
+	term
+
+terms:
+	termsz
+	eps
+
+termsz:
+	termsz SEPC term
+	term
+
+term:
+	LPAREN expr RPAREN
+	LITERAL
+	ID
+
+# Types
+type:
+	ID
+
+id:
+	ID
