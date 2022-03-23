@@ -8,7 +8,7 @@
 #define JMX_LEXER_H
 
 #include<iostream>
-#include "Token.h"
+#include "AST/Token.h"
 
 using namespace std;
 

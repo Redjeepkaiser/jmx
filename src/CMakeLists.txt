@@ -1,6 +1,11 @@
 # Add new .cpp files here
-set(core_SRCS Token.cpp Lexer.cpp Interpreter.cpp)
+set(JMX_SRCS
+    Lexer.cpp
+    Interpreter.cpp
+    ./AST/Token.cpp
+    ./AST/Num.cpp
+    ./AST/BinOp.cpp)
 
-add_library(core ${core_SRCS})
-add_executable(exe main.cpp)
-target_link_libraries(exe core)
+add_library(jmx ${JMX_SRCS})
+add_executable(jmx-compiler main.cpp)
+target_link_libraries(jmx-compiler jmx)

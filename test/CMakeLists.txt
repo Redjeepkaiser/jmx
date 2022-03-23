@@ -5,7 +5,11 @@ project(Test)
 set(CMAKE_CXX_STANDARD 11)
 
 # Add files containing new tests here
-set(test_SRCS LexerTest.cpp InterpreterTest.cpp)
+set(TEST_SRCS
+    LexerTest.cpp
+    InterpreterTest.cpp
+    BinOpTest.cpp
+    NumTest.cpp)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -16,8 +20,8 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(RunTests RunTests.cpp ${test_SRCS})
-target_link_libraries(RunTests gtest_main gmock core)
+add_executable(RunTests RunTests.cpp ${TEST_SRCS})
+target_link_libraries(RunTests gtest_main gmock jmx)
 
 include(GoogleTest)
 gtest_discover_tests(RunTests)

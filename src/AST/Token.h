@@ -1,7 +1,12 @@
+/**
+ * Header comment
+ * @author Jakob Kaiser
+ */
+
 #ifndef JMX_TOKEN_H
 #define JMX_TOKEN_H
 
-#include<string>
+#include <string>
 #include "TokenType.h"
 
 using namespace std;

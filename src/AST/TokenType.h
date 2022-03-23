@@ -4,8 +4,8 @@
  * @author Jakob Kaiser
  */
 
-#ifndef MY_PROJECT_TOKENTYPE_H
-#define MY_PROJECT_TOKENTYPE_H
+#ifndef JMX_TOKENTYPE_H
+#define JMX_TOKENTYPE_H
 
 /**
  * Enumeration of different token classes.
@@ -37,4 +37,4 @@ enum TokenType {
     END
 };
 
-#endif //MY_PROJECT_TOKENTYPE_H
+#endif // JMX_TOKENTYPE_H
