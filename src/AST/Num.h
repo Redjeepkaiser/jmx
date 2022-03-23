@@ -10,11 +10,11 @@
 #include "Node.h"
 
 class Num: public Node {
-  public:
+public:
     Num(std::string token, int value);
     NodeType getType();
 
-  private:
+private:
     std::string token;
     int value;
 };

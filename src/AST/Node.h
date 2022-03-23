@@ -9,7 +9,7 @@
 #include "NodeType.h"
 
 class Node {
-  public:
+public:
     NodeType getType();
 };
 

@@ -1,18 +1,19 @@
 #include "Token.h"
 
 Token::Token(TokenType type, string value) {
-    this->type = type;
-    this->value = value;
+    type = type;
+    value = value;
 }
 
 Token::Token(TokenType type) {
-    this->type = type;
+    type = type;
+    value = "";
 }
 
 TokenType Token::getType() {
-    return this->type;
+    return type;
 }
 
 string Token::getValue() {
-    return this->value;
+    return value;
 }

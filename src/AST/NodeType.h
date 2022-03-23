@@ -13,8 +13,8 @@
  * TODO
  */
 enum NodeType {
-  BINOP,
-  NUM
+    BINOP,
+    NUM
 };
 
 #endif // JMX_NODETYPE_H

@@ -7,6 +7,6 @@
 #include <gtest/gtest.h>
 #include "../src/AST/Num.h"
 
-TEST(NumTest, CONSTRUCTOR) {
+TEST(NumTest, Constructor) {
   Num n = Num("INTEGER", 4);
 }

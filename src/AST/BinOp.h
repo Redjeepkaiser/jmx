@@ -10,11 +10,11 @@
 #include "Node.h"
 
 class BinOp: public Node {
-  public:
+public:
     BinOp(Node &left, Token op, Node &right);
     NodeType getType();
 
-  private:
+private:
     Node *left;
     Token token;
     Node *right;
